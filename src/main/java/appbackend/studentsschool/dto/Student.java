@@ -1,4 +1,4 @@
-package appbackend.studentsschool.model;
+package appbackend.studentsschool.dto;
 
 import java.io.Serializable;
 
@@ -10,16 +10,19 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-
 @Entity
 @Table(schema = "S25", name = "student")
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 @ToString
 @Getter
 @Setter
@@ -27,8 +30,8 @@ public class Student implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "student_id")
-    private Long id; 
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "firstName")
     private String firstName;
@@ -45,6 +48,12 @@ public class Student implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-
+    public Student(String firstName, String lastName, int age, String email, String phone) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
+        this.email = email;
+        this.phone = phone;
+    }
 
 }

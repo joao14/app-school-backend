@@ -1,18 +1,14 @@
 package appbackend.studentsschool.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import appbackend.studentsschool.model.Course;
-import appbackend.studentsschool.model.Student;
+import appbackend.studentsschool.dto.Course;
+import appbackend.studentsschool.dto.Student;
+import appbackend.studentsschool.model.StudentForm;
 import appbackend.studentsschool.services.schoolService;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
 @RequestMapping("/app/v1/")
@@ -28,18 +24,19 @@ public class schoolController {
     }
 
     @PostMapping("/students/create")
-    public String createStudent() {
-        return "Hola mundo";
+    Student createStudent(@RequestBody StudentForm studentForm) {
+        return schoolService.createStudent(studentForm);
     }
 
     @PutMapping("/students/update")
-    public String updateStudent() {
-        return "Hola mundo";
+    Student updateStudent(@RequestBody Student student) {
+       return schoolService.updateStudent(student);
     }
 
     @DeleteMapping("/students/delete")
-    public String deleteStudent() {
-        return "Hola mundo";
+    public String deleteStudent(@RequestParam Long id) {
+        schoolService.deleteStudent(id);
+        return "Student delete success";
     }
 
     @GetMapping("/courses")

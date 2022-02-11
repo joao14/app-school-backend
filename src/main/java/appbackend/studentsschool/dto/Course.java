@@ -1,4 +1,4 @@
-package appbackend.studentsschool.model;
+package appbackend.studentsschool.dto;
 
 import java.io.Serializable;
 
@@ -26,8 +26,8 @@ public class Course implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "course_id")
-    private Long id; // will be set when persisting
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "name")
     private String name;
