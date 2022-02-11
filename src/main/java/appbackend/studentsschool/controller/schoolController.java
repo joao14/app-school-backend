@@ -1,5 +1,7 @@
 package appbackend.studentsschool.controller;
 
+import appbackend.studentsschool.exception.ApiRequestException;
+import appbackend.studentsschool.model.CourseForm;
 import org.springframework.web.bind.annotation.*;
 
 import appbackend.studentsschool.dto.Course;
@@ -25,7 +27,11 @@ public class schoolController {
 
     @PostMapping("/students/create")
     Student createStudent(@RequestBody StudentForm studentForm) {
-        return schoolService.createStudent(studentForm);
+        try {
+            return schoolService.createStudent(studentForm);
+        }catch (Exception exc){
+            throw new ApiRequestException(exc.getMessage());
+        }
     }
 
     @PutMapping("/students/update")
@@ -46,18 +52,19 @@ public class schoolController {
     }
 
     @PostMapping("/courses/create")
-    public String createCourse() {
-        return "Hola mundo";
+    Course createCourse(@RequestBody CourseForm courseForm) {
+        return schoolService.createCourse(courseForm);
     }
 
     @PutMapping("/courses/update")
-    public String updateCourse() {
-        return "Hola mundo";
+        Course updateCourse(@RequestBody Course course) {
+        return schoolService.updateCourse(course);
     }
 
     @DeleteMapping("/courses/delete")
-    public String deleteCourse() {
-        return "Hola mundo";
+    public String deleteCourse(Long id) {
+        schoolService.deleteCourse(id);
+        return "Course delete success";
     }
 
 }

@@ -38,4 +38,10 @@ public class Course implements Serializable {
     @Column(name = "state")
     private boolean state;
 
+    public Course(String name, int hours, boolean state){
+        this.name= name;
+        this.hours = hours;
+        this.state = state;
+    }
+
 }

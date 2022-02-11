@@ -33,6 +33,9 @@ public class Student implements Serializable {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "identification", unique = true)
+    private String identification;
+
     @Column(name = "firstName")
     private String firstName;
 
@@ -48,7 +51,8 @@ public class Student implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    public Student(String firstName, String lastName, int age, String email, String phone) {
+    public Student(String identification,String firstName, String lastName, int age, String email, String phone) {
+        this.identification = identification;
         this.firstName = firstName;
         this.lastName = lastName;
         this.age = age;
