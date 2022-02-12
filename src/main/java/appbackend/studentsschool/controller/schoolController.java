@@ -10,6 +10,8 @@ import appbackend.studentsschool.model.StudentForm;
 import appbackend.studentsschool.services.schoolService;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 @RestController
@@ -21,12 +23,13 @@ public class schoolController {
 
     @GetMapping("/students")
     List<Student> listStudent() {
-        List<Student> list = schoolService.getStudent();
-        return list;
+        return schoolService.getStudent();
     }
 
     @PostMapping("/students/create")
     Student createStudent(@RequestBody StudentForm studentForm) {
+        System.out.println("CREATEDDD");
+        System.out.println(studentForm.getIdentification());
         try {
             return schoolService.createStudent(studentForm);
         }catch (Exception exc){
@@ -47,8 +50,7 @@ public class schoolController {
 
     @GetMapping("/courses")
     List<Course> listCourse() {
-        List<Course> list = schoolService.getCourse();
-        return list;
+        return schoolService.getCourse();
     }
 
     @PostMapping("/courses/create")

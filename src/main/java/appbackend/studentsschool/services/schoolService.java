@@ -11,8 +11,10 @@ import appbackend.studentsschool.model.StudentForm;
 import appbackend.studentsschool.repository.ICourseDao;
 import appbackend.studentsschool.repository.IStudentDao;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class schoolService {
@@ -28,13 +30,19 @@ public class schoolService {
     }
 
     public Student createStudent(StudentForm studentForm) {
-
+        Set<Course> courses=new HashSet<>();
+        for (Long id:studentForm.getCourses()
+             ) {
+            Optional<Course> course= iCourseDao.findById(id);
+            if(course.isPresent())
+                courses.add(course.get());
+        }
         Student student=new Student(studentForm.getIdentification(),
-            studentForm.getFirstName(), studentForm.getLastName(),
-                studentForm.getAge(), studentForm.getEmail(), studentForm.getPhone()
-            );
+                studentForm.getFirstName(), studentForm.getLastName(),
+                studentForm.getAge(), studentForm.getEmail(), studentForm.getPhone(), courses
+        );
         Student _student=iStudentDao.save(student);
-        return iStudentDao.getById(_student.getId());
+       return (iStudentDao.findById(_student.getId())).stream().findFirst().orElse(null);
     }
 
     public Student updateStudent(Student student) {
